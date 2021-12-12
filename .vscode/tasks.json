@@ -1,0 +1,79 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "dev",
+			"dependsOn": ["npm: watch:server", "npm: start:server", "npm: dev"]
+		},
+		{
+			"type": "npm",
+			"script": "watch:server",
+			"problemMatcher": [
+				{
+					"pattern": [
+						{
+							"regexp": ".",
+							"file": 1,
+							"location": 2,
+							"message": 3
+						}
+					],
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": ".",
+						"endsPattern": ".",
+					}
+				}
+			],
+			"isBackground": true,
+			"label": "npm: watch:server"
+		},
+		{
+			"type": "npm",
+			"script": "start:server",
+			"problemMatcher": [
+				{
+					"pattern": [
+						{
+							"regexp": ".",
+							"file": 1,
+							"location": 2,
+							"message": 3
+						}
+					],
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": ".",
+						"endsPattern": ".",
+					}
+				}
+			],
+			"isBackground": true,
+			"label": "npm: start:server"
+		},
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [
+				{
+					"pattern": [
+						{
+							"regexp": ".",
+							"file": 1,
+							"location": 2,
+							"message": 3
+						}
+					],
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": ".",
+						"endsPattern": ".",
+					}
+				}
+			],
+			"isBackground": true,
+			"label": "npm: dev",
+			"detail": "vite"
+		}
+	]
+}

@@ -1,0 +1,67 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  test:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: This is test service
+      Role: 'acs:ram::1543338982436672:role/AliyunFCDefaultRole'
+      VpcConfig:
+        VpcId: vpc-uf6ka1pung5pe4jh9d5rq
+        VSwitchIds:
+          - vsw-uf6pqvrxl4gyt089obws0
+        SecurityGroupId: sg-uf69eteq2bnjtku55o4v
+      TracingConfig: Disable
+      InternetAccess: true
+    readVotes:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.readVotes
+        Runtime: nodejs12
+        Timeout: 60
+        CodeUri: './dist'
+        MemorySize: 128
+        EnvironmentVariables:
+          MONGO: >-
+            mongodb://host.docker.internal:27017
+        InstanceType: e1
+        InstanceLifecycleConfig:
+          PreFreeze:
+            Handler: ''
+            Timeout: 3
+          PreStop:
+            Handler: ''
+            Timeout: 3
+      Events:
+        defaultTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: anonymous
+            Methods:
+              - GET
+    putVote:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.putVote
+        Runtime: nodejs12
+        Timeout: 60
+        CodeUri: './dist'
+        MemorySize: 128
+        EnvironmentVariables:
+          MONGO: >-
+            mongodb://host.docker.internal:27017
+        InstanceType: e1
+        InstanceLifecycleConfig:
+          PreFreeze:
+            Handler: ''
+            Timeout: 3
+          PreStop:
+            Handler: ''
+            Timeout: 3
+      Events:
+        defaultTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: anonymous
+            Methods:
+              - POST

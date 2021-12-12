@@ -1,0 +1,15 @@
+templates:
+  template.yml:
+    test:
+      readVotes:
+        event: default_evt
+        events:
+          default_evt:
+            type: file
+            value: test\readVotes\event.evt
+      update:
+        event: default_evt
+        events:
+          default_evt:
+            type: file
+            value: test\update\event.evt

@@ -1,0 +1,29 @@
+{
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"validate": "fun validate --template server/template.yml",
+		"deploy": "fun deploy -t template.yml",
+		"start:server": "fun local start --template template.dev.yml",
+		"build:server": "esbuild --format=cjs --target=es2020 --platform=node --outfile=./dist/index.js --bundle --external:body/form --external:body --external:body/raw-body ./server/index.ts",
+		"watch:server": "npm run build:server -- --watch"
+	},
+	"devDependencies": {
+		"@alicloud/fun": "^3.6.24",
+		"@vitejs/plugin-vue": "^1.10.1",
+		"esbuild": "^0.14.2",
+		"vite": "^2.6.14",
+		"vite-plugin-windicss": "^1.5.1",
+		"vue": "3.2.23",
+		"windicss": "^3.2.1"
+	},
+	"dependencies": {
+		"@types/uuid": "^8.3.3",
+		"mongodb": "^4.2.1",
+		"pinia": "^2.0.6",
+		"primeicons": "^5.0.0",
+		"primevue": "^3.9.1",
+		"uuid": "^8.3.2",
+		"vue-router": "~4"
+	}
+}
