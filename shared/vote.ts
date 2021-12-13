@@ -1,6 +1,6 @@
 
 export interface VoteChoice {
-    id:string;
+    id: string;
     name: string;
     voteCount: number;
     voted: boolean;
@@ -21,4 +21,10 @@ export interface VoteCreationOptions {
     title: string;
     choices: string[];
     single: boolean;
+}
+
+
+export interface DoVoteOptions {
+    voteTopicId: string;
+    voteChoiceId: string;
 }

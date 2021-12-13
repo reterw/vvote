@@ -13,10 +13,10 @@ Resources:
         SecurityGroupId: sg-uf69eteq2bnjtku55o4v
       TracingConfig: Disable
       InternetAccess: true
-    readVotes:
+    vote:
       Type: 'Aliyun::Serverless::Function'
       Properties:
-        Handler: index.readVotes
+        Handler: index.vote
         Runtime: nodejs12
         Timeout: 60
         CodeUri: './dist'
@@ -38,5 +38,31 @@ Resources:
           Properties:
             AuthType: anonymous
             Methods:
-              - GET
               - POST
+              - GET
+              - PUT
+    auth:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: auth.auth
+        Runtime: nodejs12
+        Timeout: 60
+        CodeUri: './dist'
+        MemorySize: 128
+        InstanceType: e1
+        InstanceLifecycleConfig:
+          PreFreeze:
+            Handler: ''
+            Timeout: 3
+          PreStop:
+            Handler: ''
+            Timeout: 3
+      Events:
+        defaultTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: anonymous
+            Methods:
+              - GET
+
+

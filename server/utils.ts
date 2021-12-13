@@ -36,6 +36,8 @@ export function readJsonBody<T>(req: Request) {
     })
 }
 
+export function defineRawHandler(handler: Handler) { return handler }
+
 export function defineHandler(handler: Handler) {
     return (req: Request, resp: Response, context: any) => {
         handler(req, resp, context).then((result) => {

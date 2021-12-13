@@ -13,36 +13,10 @@ Resources:
         SecurityGroupId: sg-uf69eteq2bnjtku55o4v
       TracingConfig: Disable
       InternetAccess: true
-    readVotes:
+    vote:
       Type: 'Aliyun::Serverless::Function'
       Properties:
-        Handler: index.readVotes
-        Runtime: nodejs12
-        Timeout: 60
-        CodeUri: './dist'
-        MemorySize: 128
-        EnvironmentVariables:
-          MONGO: >-
-            mongodb://host.docker.internal:27017
-        InstanceType: e1
-        InstanceLifecycleConfig:
-          PreFreeze:
-            Handler: ''
-            Timeout: 3
-          PreStop:
-            Handler: ''
-            Timeout: 3
-      Events:
-        defaultTrigger:
-          Type: HTTP
-          Properties:
-            AuthType: anonymous
-            Methods:
-              - GET
-    putVote:
-      Type: 'Aliyun::Serverless::Function'
-      Properties:
-        Handler: index.putVote
+        Handler: index.vote
         Runtime: nodejs12
         Timeout: 60
         CodeUri: './dist'
@@ -65,3 +39,31 @@ Resources:
             AuthType: anonymous
             Methods:
               - POST
+              - GET
+              - PUT
+    auth:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: auth.auth
+        Runtime: nodejs12
+        Timeout: 60
+        CodeUri: './dist'
+        MemorySize: 128
+        EnvironmentVariables:
+          MONGO: >-
+            mongodb://host.docker.internal:27017
+        InstanceType: e1
+        InstanceLifecycleConfig:
+          PreFreeze:
+            Handler: ''
+            Timeout: 3
+          PreStop:
+            Handler: ''
+            Timeout: 3
+      Events:
+        defaultTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: anonymous
+            Methods:
+              - GET

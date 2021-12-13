@@ -3,10 +3,9 @@
 // var body = require('body');
 import { MongoClient } from 'mongodb';
 import { v4 } from 'uuid';
-import { defineHandler, readJsonBody } from './utils';
-import { VoteTopic } from '../shared/vote'
+import { defineHandler, defineRawHandler, readJsonBody } from './utils';
+import { DoVoteOptions, VoteTopic } from '../shared/vote'
 import { IncomingMessage } from 'http'
-
 
 /*
 To enable the initializer feature (https://help.aliyun.com/document_detail/156876.html)
@@ -63,7 +62,21 @@ process.on('unhandledRejection', (e) => {
     console.log(e)
 })
 
-export const putVote = defineHandler(async (req, res, context) => {
+export const vote = defineHandler(async (req, res, context) => {
+    switch (req.method) {
+        case 'GET':
+            return readVotes(req, res, context)
+        case 'POST':
+            return addVote(req, res, context)
+        case 'PUT':
+            return doVote(req, res, context)
+        case 'DELETE':
+        default:
+            throw new Error('Unimplemented')
+    }
+})
+
+const addVote = defineRawHandler(async (req, res, context) => {
     const client = new MongoClient(process.env.MONGO!)
 
     const body: CreateVoteOptions = await readJsonBody(req)
@@ -98,7 +111,7 @@ export const putVote = defineHandler(async (req, res, context) => {
     await votes.insertOne(voteContents)
 })
 
-export const readVotes = defineHandler(async (req, res, context) => {
+const readVotes = defineRawHandler(async (req, res, context) => {
     const client = new MongoClient(process.env.MONGO!)
 
     const username = req.headers.username || "Anonymous"
@@ -152,6 +165,40 @@ export const readVotes = defineHandler(async (req, res, context) => {
     }).forEach((history) => {
         result.find(t => t.id === history.topicId)!.choices.find(c => c.id === history.choiceId)!.voted = true
     })
-    
+
     return result
+})
+
+const doVote = defineRawHandler(async (request, response, context) => {
+    const client = new MongoClient(process.env.MONGO!)
+
+    const body: DoVoteOptions = await readJsonBody(request)
+    console.log(body)
+
+    const username = request.headers.username || "Anonymous"
+    console.log(username)
+
+    await client.connect()
+
+    const db = client.db('test')
+    const history = db.collection<VoteHistoryRecord>('votes-history')
+
+    const votes = db.collection<VoteTopicRecord>('votes')
+    const topic = await votes.findOne({ _id: body.voteTopicId })
+    console.log(`found vote ${topic}`)
+    if (topic) {
+        const hist = await history.findOne({ topicId: body.voteTopicId, choiceId: body.voteChoiceId, username })
+        const choice = topic.choices.find(e => e.id === body.voteChoiceId)
+        if (hist) {
+            console.log(hist)
+            return { voteCount: choice!.voteCount }
+        } else {
+            choice!.voteCount += 1
+            await votes.updateOne({ _id: body.voteTopicId }, { $set: topic })
+            await history.insertOne({ _id: v4(), topicId: body.voteTopicId, choiceId: body.voteChoiceId, date: "", username })
+            return { voteCount: choice!.voteCount }
+        }
+    }
+
+    throw new Error('Do Vote Failed')
 })

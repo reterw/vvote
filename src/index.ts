@@ -1,25 +1,25 @@
-import { createApp } from 'vue'
-import PrimeVue from 'primevue/config'
-import Chips from 'primevue/chips';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext'
-import Fieldset from 'primevue/fieldset';
-import Checkbox from 'primevue/checkbox';
-import Avatar from 'primevue/avatar'
-import SpeedDial from 'primevue/speeddial'
-
-import 'primevue/resources/themes/md-light-indigo/theme.css';
-import 'primevue/resources/primevue.min.css';
-import 'primeicons/primeicons.css';
-import "virtual:windi.css"
-import "./style.css"
-
-import index from './index.vue'
-import createVoteVue from "./createVote.vue";
-import voteList from "./voteLists.vue";
-import { hoverState } from './directives/hoverState';
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { useUrlSearchParams } from '@vueuse/core';
 import { createPinia } from 'pinia';
+import 'primeicons/primeicons.css';
+import Avatar from 'primevue/avatar';
+import Button from 'primevue/button';
+import Checkbox from 'primevue/checkbox';
+import Chips from 'primevue/chips';
+import PrimeVue from 'primevue/config';
+import Fieldset from 'primevue/fieldset';
+import InputText from 'primevue/inputtext';
+import 'primevue/resources/primevue.min.css';
+import 'primevue/resources/themes/md-light-indigo/theme.css';
+import SpeedDial from 'primevue/speeddial';
+import "virtual:windi.css";
+import { createApp } from 'vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { AUTH_SERVER_URL, deviceId } from './constant';
+import createVoteVue from "./createVote.vue";
+import { hoverState } from './directives/hoverState';
+import index from './index.vue';
+import "./style.css";
+import voteList from "./voteLists.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -35,7 +35,6 @@ router.afterEach(
 )
 
 const app = createApp(index)
-
 
 app.use(router)
 app.use(PrimeVue)
