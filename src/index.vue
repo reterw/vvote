@@ -57,7 +57,7 @@
              @click="push('/about')"
           >
             <i class="pi pi-clone" style="fontSize: 2rem"></i>
-            <div class="text-2xl lg:block hidden">about page</div>
+            <div class="text-2xl lg:block hidden">about app</div>
           </div>
           <a
             class="flex flex-row gap-5 items-center hover:bg-dark-300 rounded-xl cursor-pointer p-2"
