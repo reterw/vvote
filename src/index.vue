@@ -138,10 +138,7 @@ export default defineComponent({
       login() {
         window.location.href = `${GITHUB_LOGIN_URL}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&state=${deviceId}`
       },
-      returnHome() {
-        window.location = "/2.html";
-    
-      },
+  
       state,
       iconName
     };
