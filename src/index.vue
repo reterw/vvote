@@ -51,14 +51,24 @@
           >
             <i class="pi pi-search" style="fontSize: 2rem"></i>
             <div class="text-2xl lg:block hidden">发现</div>
-          </div>
+          </div> -->
           <div
             class="flex flex-row gap-5 items-center hover:bg-dark-300 rounded-xl cursor-pointer p-2"
+             @click="push('/about')"
           >
             <i class="pi pi-clone" style="fontSize: 2rem"></i>
-            <div class="text-2xl lg:block hidden">这是啥</div>
+            <div class="text-2xl lg:block hidden">about page</div>
           </div>
-          <div
+          <a
+            class="flex flex-row gap-5 items-center hover:bg-dark-300 rounded-xl cursor-pointer p-2"
+            href="https://github.com/reterw/vvote"
+            
+          >
+            
+            <i class="pi pi-github" style="fontSize: 2rem"></i>
+            <div class="text-2xl lg:block hidden">Github</div>
+          </a>
+          <!-- <div
             class="flex flex-row gap-5 items-center hover:bg-dark-300 rounded-xl cursor-pointer p-2"
           >
             <i class="pi pi-facebook" style="fontSize: 2rem"></i>
@@ -130,7 +140,7 @@ export default defineComponent({
       },
       returnHome() {
         window.location = "/2.html";
-        // alert('fuck you')
+    
       },
       state,
       iconName

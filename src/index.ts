@@ -20,12 +20,14 @@ import { hoverState } from './directives/hoverState';
 import index from './index.vue';
 import "./style.css";
 import voteList from "./voteLists.vue";
+import about from "./about.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         { path: '/create-vote', component: createVoteVue },
         { path: '/', component: voteList },
+        { path: '/about', component: about}
     ]
 })
 router.afterEach(
