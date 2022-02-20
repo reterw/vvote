@@ -35,9 +35,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
-      - name: 'Resolve Project Dependencies Using Npm'
+      - name: npm install
         run: |
           pnpm install
+      - name: build
+        run: |
           pnpm run build
         env:
           NODE_ENV: production
