@@ -27,7 +27,8 @@ export function defineHandler(handler: Handler, allow: string = "GET,POST,OPTION
         if (req.method === 'OPTIONS') {
             context.res = {
                 headers: {
-                    allow
+                    allow,
+                    'Access-Control-Allow-Origin': 'https://reterw.github.io/'
                 }
             }
             return
