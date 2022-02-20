@@ -20,23 +20,6 @@ export interface Handler {
     (context: Context, req: HttpRequest): Promise<any> | void;
 }
 
-const body = require('body');
-const jsonBody = require('body/json');
-
-export { body }
-
-export function readJsonBody<T>(req: Request) {
-    return new Promise<T>((resolve, reject) => {
-        jsonBody(req, (err: any, json: T) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(json)
-            }
-        })
-    })
-}
-
 export function defineRawHandler(handler: Handler) { return handler }
 
 export function defineHandler(handler: Handler): Handler {

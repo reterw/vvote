@@ -3,8 +3,8 @@
 // var body = require('body');
 import { MongoClient } from 'mongodb';
 import { v4 } from 'uuid';
-import { defineHandler, defineRawHandler, readJsonBody } from './utils';
-import { DoVoteOptions, VoteTopic } from '../../shared/vote'
+import { DoVoteOptions, VoteTopic } from '../../shared/vote';
+import { defineHandler, defineRawHandler } from './utils';
 
 /*
 To enable the initializer feature (https://help.aliyun.com/document_detail/156876.html)
