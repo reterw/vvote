@@ -77,19 +77,20 @@ export const vote = defineHandler(async (context, req) => {
 
 const addVote = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!, { ssl: true, tls: true })
+    const logger = context.log
 
     const body: CreateVoteOptions = await JSON.parse(req.rawBody)
-    console.log(body)
+    logger.info(body)
 
     const username = req.headers.username || "Anonymous"
-    console.log(username)
+    logger.info(username)
 
     try {
         await client.connect()
     } catch (e) {
         return { error: e, type: 'dbconnection' }
     }
-    console.log('db')
+    logger.info('db')
     const db = client.db('test')
     const votes = db.collection<VoteTopicRecord>('votes')
 
@@ -106,20 +107,24 @@ const addVote = defineRawHandler(async (context, req) => {
         likedCount: 0,
         savedCount: 0,
     }
-    console.log(voteContents)
+    logger.info(voteContents)
     await votes.insertOne(voteContents)
 })
 
 const readVotes = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!)
-
     const username = req.headers.username || "Anonymous"
+    const logger = context.log
+
+    logger.info('read votes')
 
     try {
         await client.connect()
     } catch (e) {
         return { error: e, type: 'dbconnection' }
     }
+
+    logger.info('read votes: connected')
 
     const db = client.db('test')
     const votes = db.collection<VoteTopicRecord>('votes')
@@ -165,17 +170,20 @@ const readVotes = defineRawHandler(async (context, req) => {
         result.find(t => t.id === history.topicId)!.choices.find(c => c.id === history.choiceId)!.voted = true
     })
 
+    logger.info('read votes: return ' + result.length +  ' results')
+
     return result
 })
 
 const doVote = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!)
+    const logger = context.log
 
     const body: DoVoteOptions = JSON.parse(req.rawBody)
-    console.log(body)
+    logger.info(body)
 
     const username = req.headers.username || "Anonymous"
-    console.log(username)
+    logger.info(username)
 
     await client.connect()
 
@@ -184,12 +192,12 @@ const doVote = defineRawHandler(async (context, req) => {
 
     const votes = db.collection<VoteTopicRecord>('votes')
     const topic = await votes.findOne({ _id: body.voteTopicId })
-    console.log(`found vote ${topic}`)
+    logger.info(`found vote ${topic}`)
     if (topic) {
         const hist = await history.findOne({ topicId: body.voteTopicId, choiceId: body.voteChoiceId, username })
         const choice = topic.choices.find(e => e.id === body.voteChoiceId)
         if (hist) {
-            console.log(hist)
+            logger.info(hist)
             return { voteCount: choice!.voteCount }
         } else {
             choice!.voteCount += 1
