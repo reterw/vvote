@@ -20,14 +20,15 @@ jobs:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v2
 
-      - name: Setup Node ${{ env.NODE_VERSION }} Environment
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ env.NODE_VERSION }}
 
       - uses: pnpm/action-setup@v2.1.0
         with:
           version: 6.0.2
+      - name: Setup Node ${{ env.NODE_VERSION }} Environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
       - name: 'Resolve Project Dependencies Using Npm'
         shell: pwsh
         run: |
@@ -42,4 +43,5 @@ jobs:
           app-name: '602vote'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          respect-funcignore: true
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E415C87C867C4F4482B614AD0D98812F }}
