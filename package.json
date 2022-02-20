@@ -3,7 +3,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"start:server": "fun local start --template template.dev.yml",
-		"build:server": "esbuild --format=cjs --target=es2020 --platform=node --outdir=./server/dist --bundle --external:body/form --external:body --external:body/raw-body ./server/vote/index.ts ./server/auth/index.ts",
+		"build:server": "esbuild --format=cjs --target=es2020 --platform=node --outdir=./server/dist --bundle ./server/vote/index.ts ./server/auth/index.ts",
 		"watch:server": "npm run build:server -- --watch"
 	},
 	"devDependencies": {
