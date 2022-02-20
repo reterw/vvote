@@ -4,8 +4,7 @@
 import { MongoClient } from 'mongodb';
 import { v4 } from 'uuid';
 import { defineHandler, defineRawHandler, readJsonBody } from './utils';
-import { DoVoteOptions, VoteTopic } from '../shared/vote'
-import { IncomingMessage } from 'http'
+import { DoVoteOptions, VoteTopic } from '../../shared/vote'
 
 /*
 To enable the initializer feature (https://help.aliyun.com/document_detail/156876.html)
@@ -62,24 +61,24 @@ process.on('unhandledRejection', (e) => {
     console.log(e)
 })
 
-export const vote = defineHandler(async (req, res, context) => {
+export const vote = defineHandler(async (context, req) => {
     switch (req.method) {
         case 'GET':
-            return readVotes(req, res, context)
+            return readVotes(context, req)
         case 'POST':
-            return addVote(req, res, context)
+            return addVote(context, req)
         case 'PUT':
-            return doVote(req, res, context)
+            return doVote(context, req)
         case 'DELETE':
         default:
             throw new Error('Unimplemented')
     }
 })
 
-const addVote = defineRawHandler(async (req, res, context) => {
-    const client = new MongoClient(process.env.MONGO!)
+const addVote = defineRawHandler(async (context, req) => {
+    const client = new MongoClient(process.env.MONGO!, { ssl: true, tls: true })
 
-    const body: CreateVoteOptions = await readJsonBody(req)
+    const body: CreateVoteOptions = await JSON.parse(req.rawBody)
     console.log(body)
 
     const username = req.headers.username || "Anonymous"
@@ -111,7 +110,7 @@ const addVote = defineRawHandler(async (req, res, context) => {
     await votes.insertOne(voteContents)
 })
 
-const readVotes = defineRawHandler(async (req, res, context) => {
+const readVotes = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!)
 
     const username = req.headers.username || "Anonymous"
@@ -169,13 +168,13 @@ const readVotes = defineRawHandler(async (req, res, context) => {
     return result
 })
 
-const doVote = defineRawHandler(async (request, response, context) => {
+const doVote = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!)
 
-    const body: DoVoteOptions = await readJsonBody(request)
+    const body: DoVoteOptions = JSON.parse(req.rawBody)
     console.log(body)
 
-    const username = request.headers.username || "Anonymous"
+    const username = req.headers.username || "Anonymous"
     console.log(username)
 
     await client.connect()

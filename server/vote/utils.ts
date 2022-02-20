@@ -1,3 +1,4 @@
+import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 
 export interface Request {
     path: string
@@ -16,7 +17,7 @@ export interface Response {
 
 
 export interface Handler {
-    (request: Request, response: Response, context: any): Promise<any>
+    (context: Context, req: HttpRequest): Promise<any> | void;
 }
 
 const body = require('body');
@@ -38,18 +39,12 @@ export function readJsonBody<T>(req: Request) {
 
 export function defineRawHandler(handler: Handler) { return handler }
 
-export function defineHandler(handler: Handler) {
-    return (req: Request, resp: Response, context: any) => {
-        handler(req, resp, context).then((result) => {
-            if (result) {
-                resp.setHeader('content-type', 'application/json')
-                resp.send(JSON.stringify(result))
-            } else {
-                resp.send('')
-            }
-        }, (e) => {
-            resp.setHeader('content-type', 'application/json')
-            resp.send(JSON.stringify({ 'error': e }))
-        })
+export function defineHandler(handler: Handler): Handler {
+    return async (context, req) => {
+        const result = await handler(context, req)
+        context.res = {
+            body: JSON.stringify(result),
+            headers: { 'content-type': 'application/json' }
+        }
     }
 }

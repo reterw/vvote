@@ -5,6 +5,7 @@ importers:
   .:
     specifiers:
       '@alicloud/fun': ^3.6.24
+      '@azure/functions': ^3.0.0
       '@types/uuid': ^8.3.3
       '@vitejs/plugin-vue': ^1.10.1
       '@vueuse/core': ^7.3.0
@@ -32,6 +33,7 @@ importers:
       uuid: registry.npmmirror.com/uuid/8.3.2
       vue-router: registry.npmmirror.com/vue-router/4.0.12_vue@3.2.23
     devDependencies:
+      '@azure/functions': 3.0.0
       '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.10.1_vite@2.6.14
       esbuild: registry.npmmirror.com/esbuild/0.14.2
       vite: registry.npmmirror.com/vite/2.6.14
@@ -51,6 +53,10 @@ importers:
       esbuild: registry.npmmirror.com/esbuild/0.14.2
 
 packages:
+
+  /@azure/functions/3.0.0:
+    resolution: {integrity: sha512-nxOdQdYoy9JEdAPsQlBWavsRvbH5qT2fpwMcY64s1sLIT8QwtW7ebh/MJNgzeAac+JaC6IED7plDiizq8oZUNw==}
+    dev: true
 
   registry.nlark.com/@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha1-dhnC6yGyVIP20WdUi0z9WnSIw9U=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@nodelib/fs.scandir/download/@nodelib/fs.scandir-2.1.5.tgz}

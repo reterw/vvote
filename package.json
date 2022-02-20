@@ -5,7 +5,7 @@
 		"validate": "fun validate --template server/template.yml",
 		"deploy": "fun deploy -t template.yml",
 		"start:server": "fun local start --template template.dev.yml",
-		"build:server": "esbuild --format=cjs --target=es2020 --platform=node --outdir=./dist --bundle --external:body/form --external:body --external:body/raw-body ./server/index.ts ./server/auth.ts",
+		"build:server": "esbuild --format=cjs --target=es2020 --platform=node --outdir=./server/dist --bundle --external:body/form --external:body --external:body/raw-body ./server/vote/index.ts ./server/auth/index.ts",
 		"watch:server": "npm run build:server -- --watch"
 	},
 	"devDependencies": {
@@ -14,6 +14,7 @@
 		"vite": "^2.6.14",
 		"vite-plugin-windicss": "^1.5.1",
 		"vue": "3.2.23",
+		"@azure/functions": "^3.0.0",
 		"windicss": "^3.2.1"
 	},
 	"dependencies": {

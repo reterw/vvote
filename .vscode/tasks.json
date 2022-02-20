@@ -3,7 +3,11 @@
 	"tasks": [
 		{
 			"label": "dev",
-			"dependsOn": ["npm: watch:server", "npm: start:server", "npm: dev"]
+			"dependsOn": [
+				"npm: watch:server",
+				"npm: start:server",
+				"npm: dev"
+			]
 		},
 		{
 			"type": "npm",
@@ -21,7 +25,7 @@
 					"background": {
 						"activeOnStart": true,
 						"beginsPattern": ".",
-						"endsPattern": ".",
+						"endsPattern": "."
 					}
 				}
 			],
@@ -44,7 +48,7 @@
 					"background": {
 						"activeOnStart": true,
 						"beginsPattern": ".",
-						"endsPattern": ".",
+						"endsPattern": "."
 					}
 				}
 			],
@@ -67,13 +71,32 @@
 					"background": {
 						"activeOnStart": true,
 						"beginsPattern": ".",
-						"endsPattern": ".",
+						"endsPattern": "."
 					}
 				}
 			],
 			"isBackground": true,
 			"label": "npm: dev",
 			"detail": "vite"
+		},
+		{
+			"type": "func",
+			"command": "host start",
+			"problemMatcher": "$func-node-watch",
+			"isBackground": true,
+			"dependsOn": "npm build (functions)"
+		},
+		{
+			"type": "shell",
+			"label": "npm build (functions)",
+			"command": "pnpm run build:server"
+		},
+		{
+			"type": "shell",
+			"label": "npm prune (functions)",
+			"command": "echo Skip",
+			"dependsOn": "npm build (functions)",
+			"problemMatcher": []
 		}
 	]
 }
