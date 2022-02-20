@@ -5,10 +5,11 @@ on:
     branches:
       - main
     paths:
-      - src
-      - shared
+      - .github/workflows/github-pages.yml
+      - src/**
+      - shared/**
       - index.html
-      - shared
+      - shared/**
       - index.mjs
       - style.css
       - vite.config.ts
