@@ -10,6 +10,7 @@ import windicss from "vite-plugin-windicss"
 //     }
 // }
 export default defineConfig({
+    base: '/vvote',
     plugins: [vuePlugin(), windicss()]
 })
 
