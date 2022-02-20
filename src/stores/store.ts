@@ -19,7 +19,7 @@ export const useUserInfo = defineStore('user', () => {
     async function handleAuthentication() {
         console.log(`${queries.code}`)
         const url = `${AUTH_SERVER_URL}?code=${queries.code}&state=${_deviceId}`
-        const resp = await fetch(url)
+        const resp = await fetch(url, { mode: 'cors' })
         const { userId, avatarUrl: avatar, accessToken: token } = await resp.json()
         username.value = userId
         avatarUrl.value = avatar
@@ -61,7 +61,7 @@ export const useVoteTopicStore = defineStore('vote-topic', () => {
             voteTopicId: t.id,
             voteChoiceId: c.id
         }
-        const response = await fetch(import.meta.env.VITE_VOTE_URL, { method: "PUT", body: JSON.stringify(option), headers: { username: user.username } })
+        const response = await fetch(import.meta.env.VITE_VOTE_URL, { method: "PUT", body: JSON.stringify(option), headers: { username: user.username }, mode: 'cors' })
 
         const { voteCount } = await response.json()
 
@@ -80,7 +80,7 @@ export const useVoteTopicStore = defineStore('vote-topic', () => {
     }
     async function create(v: VoteCreationOptions) {
         const user = useUserInfo()
-        await fetch(import.meta.env.VITE_VOTE_URL, { method: "POST", body: JSON.stringify(v), headers: { username: user.username } })
+        await fetch(import.meta.env.VITE_VOTE_URL, { method: "POST", body: JSON.stringify(v), headers: { username: user.username }, mode: 'cors' })
         refresh()
     }
     async function remove() {

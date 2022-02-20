@@ -35,7 +35,7 @@ export function defineHandler(handler: Handler, allow: string = "GET,POST,OPTION
         const result = await handler(context, req)
         context.res = {
             body: JSON.stringify(result),
-            headers: { 'content-type': 'application/json' }
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': 'https://reterw.github.io/' }
         }
     }
 }
