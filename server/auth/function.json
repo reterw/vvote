@@ -15,5 +15,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../../dist/auth/index.js"
+  "scriptFile": "../dist/auth/index.js"
 }

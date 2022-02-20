@@ -18,5 +18,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../../dist/vote/index.js"
+  "scriptFile": "../dist/vote/index.js"
 }
