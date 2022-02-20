@@ -63,6 +63,8 @@ process.on('unhandledRejection', (e) => {
 
 export const vote = defineHandler(async (context, req) => {
     switch (req.method) {
+        case 'OPTIONS':
+            return {}
         case 'GET':
             return readVotes(context, req)
         case 'POST':

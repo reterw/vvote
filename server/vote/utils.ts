@@ -22,8 +22,16 @@ export interface Handler {
 
 export function defineRawHandler(handler: Handler) { return handler }
 
-export function defineHandler(handler: Handler): Handler {
+export function defineHandler(handler: Handler, allow: string = "GET,POST,OPTIONS,DELETE,PUT"): Handler {
     return async (context, req) => {
+        if (req.method === 'OPTIONS') {
+            context.res = {
+                headers: {
+                    allow
+                }
+            }
+            return
+        }
         const result = await handler(context, req)
         context.res = {
             body: JSON.stringify(result),

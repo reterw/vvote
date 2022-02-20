@@ -15,4 +15,4 @@ export const auth = defineHandler(async (context, req) => {
     const userResp = await axios(`https://api.github.com/user`, { headers: { Authorization: `token ${token}` }})
 
     return { userId: userResp.data.login, avatarUrl: userResp.data.avatar_url, accessToken: token }
-})
+}, "GET")
