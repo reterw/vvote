@@ -3,7 +3,7 @@
         <br />
         <div>
             <div>
-                <br>
+                <br />
                 <label class="text-6xl">How to set server on Alibaba</label>
                 <img src="./image/ali/a1.jpg" />
                 <img src="./image/ali/a2.jpg" />
@@ -19,9 +19,10 @@
                 <img src="./image/ali/a12.jpg" />
                 <label class="text-6xl">PrimeVue icon</label>
                 <img src="./image/pv/pv1.jpg" />
-                <a class="text-3xl text-yellow-200" href="https://www.primefaces.org/primevue/showcase/#/icons">PrimeVue Link</a>
-                
-
+                <a
+                    class="text-3xl text-yellow-200"
+                    href="https://www.primefaces.org/primevue/showcase/#/icons"
+                >PrimeVue Link</a>
             </div>
         </div>
     </div>

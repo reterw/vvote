@@ -16,6 +16,8 @@ on:
       - favicon.png
       - windi.config.ts
       - package.json
+      - .env
+      - .env.prod
 
 jobs:
   publish:
