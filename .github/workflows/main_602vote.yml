@@ -8,8 +8,9 @@ on:
     branches:
       - main
     paths:
-      - server
-      - shared
+      - .github/workflows/main_602vote.yml
+      - server/**
+      - shared/**
       - package.json
   workflow_dispatch:
 
