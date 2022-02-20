@@ -40,7 +40,7 @@ jobs:
           pnpm install
       - name: build
         run: |
-          pnpm run build
+          pnpm run build -- --mode prod
         env:
           NODE_ENV: production
       -
