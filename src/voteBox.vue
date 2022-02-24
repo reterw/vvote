@@ -50,7 +50,7 @@ export default defineComponent({
   },
   emits: ['vote', 'like', 'save','delete'],
   setup(props, context) {
-    const getVoteIconName = (voted: boolean) => voted ? "pi pi-thumbs-up" : "pi pi-check"
+    const getVoteIconName = ((voted: boolean) => voted ?  "pi pi-check" : "pi pi-thumbs-up" );
     const likedIcon = computed(() => props.content.liked ? "pi pi-heart-fill" : "pi pi-heart");
     const savedIcon = computed(() => props.content.saved ? "pi pi-star-fill" : "pi pi-star");
     const deleteIcon = computed(() => props.content.saved ? "pi pi-trash-fill" : "pi pi-trash");
