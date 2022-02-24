@@ -76,6 +76,43 @@ export const vote = defineHandler(async (context, req) => {
             throw new Error('Unimplemented')
     }
 })
+const deleteVote = defineRawHandler(async(context, req)=>{
+    const client = new MongoClient(process.env.MONGO!, { ssl: true, tls: true })
+    const logger = context.log
+
+    const body: CreateVoteOptions = await JSON.parse(req.rawBody)
+    logger.info(body)
+
+    const username = req.headers.username || "Anonymous"
+    logger.info(username)
+
+    try {
+        await client.connect()
+    } catch (e) {
+        return { error: e, type: 'dbconnection' }
+    }
+    logger.info('db')
+    const db = client.db('test')
+    const votes = db.collection<VoteTopicRecord>('votes')
+
+    const voteContents: VoteTopicRecord = {
+        _id: v4(),
+        title: body.title,
+        author: username,
+        choices: body.choices.map(name => ({
+            id: v4(),
+            name: name,
+            voteCount: 0
+        })),
+        single: body.single,
+        likedCount: 0,
+        savedCount: 0,
+    }
+    logger.info(voteContents)
+    await votes.insertOne(voteContents)
+})
+
+
 
 const addVote = defineRawHandler(async (context, req) => {
     const client = new MongoClient(process.env.MONGO!, { ssl: true, tls: true })
@@ -84,7 +121,7 @@ const addVote = defineRawHandler(async (context, req) => {
     const body: CreateVoteOptions = await JSON.parse(req.rawBody)
     logger.info(body)
 
-    const username = req.headers.username || "Anonymous"
+    const username = req.headers.username
     logger.info(username)
 
     try {
