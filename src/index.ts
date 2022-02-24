@@ -21,13 +21,15 @@ import index from './index.vue';
 import "./style.css";
 import voteList from "./voteLists.vue";
 import about from "./about.vue";
+import adminPage from "./adminPage.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         { path: '/create-vote', component: createVoteVue },
         { path: '/', component: voteList },
-        { path: '/about', component: about}
+        { path: '/about', component: about},
+        { path: '/admin-page', component:adminPage}
     ]
 })
 router.afterEach(
