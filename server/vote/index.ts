@@ -101,6 +101,8 @@ const deleteVote = defineRawHandler(async(context, req)=>{
     const votes = db.collection<VoteTopicRecord>('votes')
     const target = await votes.findOne({ _id: body.id })
     console.log(username)
+    console.log(target)
+    console.log(target?.author)
     if (username===target?.author){
         votes.deleteOne(target)
     }
