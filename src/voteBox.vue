@@ -33,7 +33,7 @@
       <i :class="likedIcon" class="cursor-pointer" @click="$emit('like', content)"></i>
       <i :class="savedIcon" class="cursor-pointer" @click="$emit('save', content)"></i>
       <i v-if="admin" :class="removeIcon" class="cursor-pointer" @click="$emit('remove', content)"></i>
-      <i class="pi pi-external-link cursor-pointer"></i>
+      <!-- <i  class="pi pi-external-link cursor-pointer"></i> -->
     </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ import { required } from "./utils";
 export default defineComponent({
   props: {
     content: required<VoteTopic>(Object),
-    admin: Boolean
+    admin: Boolean,
+ 
 
 
   },
