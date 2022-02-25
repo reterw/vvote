@@ -58,8 +58,7 @@ export interface CreateVoteOptions {
 }
 
 export interface DeleteVoteOption{
-    _id: string;
-    author: string;
+    id: string;
 }
 
 process.on('unhandledRejection', (e) => {
@@ -100,7 +99,7 @@ const deleteVote = defineRawHandler(async(context, req)=>{
     logger.info('db')
     const db = client.db('test')
     const votes = db.collection<VoteTopicRecord>('votes')
-    const target = await votes.findOne({ _id: body._id })
+    const target = await votes.findOne({ _id: body.id })
     if (username===target?.author){
         votes.deleteOne(target)
     }

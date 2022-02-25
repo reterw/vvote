@@ -83,9 +83,9 @@ export const useVoteTopicStore = defineStore('vote-topic', () => {
         await fetch(import.meta.env.VITE_VOTE_URL, { method: "POST", body: JSON.stringify(v), headers: { username: user.username }, mode: 'cors' })
         refresh()
     }
-    async function remove(v: RemoveVoteOptions){
+    async function remove(v: VoteTopic){
         const user = useUserInfo()
-        await fetch(import.meta.env.VITE_VOTE_URL, { method: "DELETE", body: JSON.stringify(v), headers: { username: user.username }, mode: 'cors' })
+        await fetch(import.meta.env.VITE_VOTE_URL, { method: "DELETE", body: JSON.stringify({"id":v.id}), headers: { username: user.username }, mode: 'cors' })
         refresh()
     }
     
