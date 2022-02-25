@@ -23,6 +23,10 @@ export interface VoteCreationOptions {
     single: boolean;
 }
 
+export interface RemoveVoteOptions {
+    _id: string;
+    author: string;
+}
 
 export interface DoVoteOptions {
     voteTopicId: string;

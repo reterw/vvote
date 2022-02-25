@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
 import {
     DoVoteOptions,
-    VoteChoice, VoteCreationOptions, VoteTopic
+    VoteChoice, VoteCreationOptions, VoteTopic,RemoveVoteOptions
 } from '../../shared/vote';
 import { AUTH_SERVER_URL, deviceId as _deviceId } from "../constant";
 
@@ -83,9 +83,12 @@ export const useVoteTopicStore = defineStore('vote-topic', () => {
         await fetch(import.meta.env.VITE_VOTE_URL, { method: "POST", body: JSON.stringify(v), headers: { username: user.username }, mode: 'cors' })
         refresh()
     }
-    async function remove() {
-        //TBD
+    async function remove(v: RemoveVoteOptions){
+        const user = useUserInfo()
+        await fetch(import.meta.env.VITE_VOTE_URL, { method: "DELETE", body: JSON.stringify(v), headers: { username: user.username }, mode: 'cors' })
+        refresh()
     }
+    
     return {
         refresh,
         votes,
