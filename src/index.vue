@@ -58,8 +58,8 @@
             class="flex flex-row gap-5 items-center hover:bg-dark-300 rounded-xl cursor-pointer p-2"
              @click="push('/admin-page')"
           >
-            <i class="pi pi-clone" style="fontSize: 2rem"></i>
-            <div class="text-2xl lg:block hidden">my page</div>
+            <i class="pi pi-users" style="fontSize: 2rem"></i>
+            <div class="text-2xl lg:block hidden">my page (can delete)</div>
           </div>
 
 
@@ -108,6 +108,9 @@ import { useUserInfo } from "./stores/store";
 
 // import banner from "./banner.png";
 export default defineComponent({
+  props:{
+
+  },
   directives: {
     hoverState,
   },

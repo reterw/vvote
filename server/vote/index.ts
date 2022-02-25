@@ -120,7 +120,7 @@ const addVote = defineRawHandler(async (context, req) => {
     const body: CreateVoteOptions = await JSON.parse(req.rawBody)
     logger.info(body)
 
-    const username = req.headers.username
+    const username = req.headers.username || "Anonymous"
     logger.info(username)
 
     try {
@@ -131,7 +131,7 @@ const addVote = defineRawHandler(async (context, req) => {
     logger.info('db')
     const db = client.db('test')
     const votes = db.collection<VoteTopicRecord>('votes')
-
+    
     const voteContents: VoteTopicRecord = {
         _id: v4(),
         title: body.title,

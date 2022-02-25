@@ -32,7 +32,7 @@
     <div class="col-start-9 col-span-4 flex gap-3 sm:m-5 text-light-100">
       <i :class="likedIcon" class="cursor-pointer" @click="$emit('like', content)"></i>
       <i :class="savedIcon" class="cursor-pointer" @click="$emit('save', content)"></i>
-      <i :class="removeIcon" class="cursor-pointer" @click="$emit('remove', content)"></i>
+      <i v-if="admin" :class="removeIcon" class="cursor-pointer" @click="$emit('remove', content)"></i>
       <i class="pi pi-external-link cursor-pointer"></i>
     </div>
   </div>
@@ -47,7 +47,7 @@ import { required } from "./utils";
 export default defineComponent({
   props: {
     content: required<VoteTopic>(Object),
-    
+    admin: Boolean
 
 
   },
@@ -57,6 +57,7 @@ export default defineComponent({
     const likedIcon = computed(() => props.content.liked ? "pi pi-heart-fill" : "pi pi-heart");
     const savedIcon = computed(() => props.content.saved ? "pi pi-star-fill" : "pi pi-star");
     const removeIcon = "pi pi-trash";
+
     return {
       doVote(c: VoteChoice) {
         context.emit('vote', c)
