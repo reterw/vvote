@@ -4,25 +4,25 @@
         <div>
             <div>
                 <br />
-                <label class="text-6xl">How to set server on Alibaba</label>
-                <img src="./image/ali/a1.jpg" />
-                <img src="./image/ali/a2.jpg" />
-                <img src="./image/ali/a3.jpg" />
-                <img src="./image/ali/a4.jpg" />
-                <img src="./image/ali/a5.jpg" />
-                <img src="./image/ali/a6.jpg" />
-                <img src="./image/ali/a7.jpg" />
-                <img src="./image/ali/a8.jpg" />
-                <img src="./image/ali/a9.jpg" />
-                <img src="./image/ali/a10.jpg" />
-                <img src="./image/ali/a11.jpg" />
-                <img src="./image/ali/a12.jpg" />
-                <label class="text-6xl">PrimeVue icon</label>
-                <img src="./image/pv/pv1.jpg" />
+                <label class="text-6xl">Some details about this app</label>
+                <br />
+                <label class="text-4xl">Azure function</label>
+                <br />
+                <label class="text-2xl">My Server-Side functionality has been deployed on Microsoft Azure server</label>
+                <br />
+                <img src="./image/602/602azureFunction.jpg" />
+                <label class="text-4xl">Persistence</label>
+                <br />
+                <label class="text-2xl">Im using CusmosDB provide by Azure to save my data, which also share the Mongo API</label>
+                <br />
+                <img src="./image/602/cusmosdb.jpg" />
+                <label class="text-4xl">Rest API endpoints</label>
+                <br />
                 <a
                     class="text-3xl text-yellow-200"
-                    href="https://www.primefaces.org/primevue/showcase/#/icons"
-                >PrimeVue Link</a>
+                    href="https://602vote.azurewebsites.net/api/vote"
+                >https://602vote.azurewebsites.net/api/vote</a>
+                <img src="./image/602/RestEndpoints.jpg" />
             </div>
         </div>
     </div>
